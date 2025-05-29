@@ -6,20 +6,40 @@
 	<title>Vêrmelding</title>
 	<style>
 		body {
-			background-color: black;
+			background-color: rgb(2, 10, 20);
+			margin: 0;
+			padding: 0;
 		}
 		main {
+			background-color: red;
+			width: 1920px;
+			height: 1080px;
+
 			margin: 0;
 			padding: 0;
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: 1fr 1fr;
 		}
+		#meteogram {
+			grid-column: 2 / 3;
+			grid-row: 2/3;
+		}
+		iframe {
+			border: none;
+		}
+		#widget {
+			height: 100%;
+			width: 100%;
+			grid-column: 1fr;
+			grid-row: 1/3;
+		}
 	</style>
 </head>
 <body>
 	<main>
-		
+		<iframe id="widget" src="https://www.yr.no/nn/innhald/1-73911/card.html?mode=dark"></iframe>
+		<img id="meteogram" src="https://www.yr.no/nn/innhald/1-73911/meteogram.svg?mode=dark">
 	</main>
 </body>
 </html>
