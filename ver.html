@@ -24,6 +24,7 @@
 		#meteogram {
 			grid-column: 2 / 3;
 			grid-row: 2/3;
+			height: calc(1080px/2);
 		}
 		iframe {
 			border: none;
@@ -32,14 +33,68 @@
 			height: 100%;
 			width: 100%;
 			grid-column: 1fr;
-			grid-row: 1/3;
+			grid-row: 1/2;
+			margin: 0;
+			padding: 0;
+		}
+
+		#script {
+			grid-column: 1/2;
+			grid-row: 2/3;
+			background-color: green;
+		}
+
+		#weather {
+			display: flex;
+		}
+
+		#weatherIcon {
+			width: 100px;
+		}
+
+		#temp {
+			font-size: 40px;
 		}
 	</style>
 </head>
 <body>
 	<main>
 		<iframe id="widget" src="https://www.yr.no/nn/innhald/1-73911/card.html?mode=dark"></iframe>
+		
+		<div id="script">
+			<h1>Bryn stasjon</h1>
+			<div id="weather">
+				<img id="weatherIcon">
+				<p id="temp"></p>
+			</div>
+		</div>
+
 		<img id="meteogram" src="https://www.yr.no/nn/innhald/1-73911/meteogram.svg?mode=dark">
 	</main>
+	    <script>
+        const getWeather = async () => {
+            const url = "https://api.met.no/weatherapi/nowcast/2.0/complete?lat=59.90&lon=10.81"; // Location: NHV25
+            const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
+            const response = await fetch(url, {headers: {"User-Agent": userAgent}});
+            return await response.json();
+        }
+
+        (async () => {
+            try {
+                const weatherData = await getWeather();
+                console.log(weatherData);
+
+                let nowWeather = weatherData.properties.timeseries[0].data.instant.details;
+                let weatherSymbol = weatherData.properties.timeseries[0].data.next_1_hours.summary.symbol_code;
+                console.log(nowWeather);
+
+                document.getElementById("temp").innerHTML = Math.round(nowWeather.air_temperature) + "°";
+                document.getElementById("weatherIcon").src = "weathericonssvg/" + weatherSymbol + ".svg";
+                document.getElementById("weatherIcon").style = "display: inline";
+            } catch (error) {
+                console.log("Error");
+            }
+        })();
+    </script>
 </body>
 </html>

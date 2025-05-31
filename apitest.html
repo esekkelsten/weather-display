@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-test</title>
+    <style>
+        #weatherIcon {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="temp">N/A</h1>
+    <img id="weatherIcon" src="" style="display: none;">
+    <script>
+         // Direct from API
+        const getWeather = async () => {
+            const url = "https://api.met.no/weatherapi/nowcast/2.0/complete?lat=59.90&lon=10.81"; // Location: NHV25
+            const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
+            const response = await fetch(url, {headers: {"User-Agent": userAgent}});
+            return await response.json();
+        }
+
+        (async () => {
+            try {
+                const weatherData = await getWeather();
+                console.log(weatherData);
+
+                let nowWeather = weatherData.properties.timeseries[0].data.instant.details;
+                let weatherSymbol = weatherData.properties.timeseries[0].data.next_1_hours.summary.symbol_code;
+                console.log(nowWeather);
+
+                document.getElementById("temp").innerHTML = nowWeather.air_temperature + "°C";
+                document.getElementById("weatherIcon").src = "weathericonssvg/" + weatherSymbol + ".svg";
+                document.getElementById("weatherIcon").style = "display: inline";
+            } catch (error) {
+                console.log("Error");
+            }
+        })(); 
+               
+        /*  //Local Storage
+
+        */
+        // console.log(weatherData);
+        
+    </script>
+</body>
+</html>
