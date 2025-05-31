@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-knapp</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <p id="tekst">Placeholder</p>
+    <code id="kode" style="background-color: lightgray;">Placeholder</code>
+    <br>
+    <button id="knapp" onclick="getUsers()">Knapp</button>
+
+
+    <!-- <script>
+        async function getUsers() {
+            console.log("Kjører script.")
+            let response = await fetch("https://jsonplaceholder.typicode.com/users");
+            let users = await response.json();
+            document.getElementById("kode").innerHTML = users;
+        }
+    </script> -->
+</body>
+</html>

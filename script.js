@@ -8,19 +8,19 @@
 
 const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
 
-async function getData() {
-    const url = "https://jsonplaceholder.typicode.com/users";
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        const json = await response.json();
-        console.log(json);
-    } catch (error) {
-        console.error(error.message);
+async function getUsers() {
+    console.log("Kjører script.")
+    let response = await fetch("https://jsonplaceholder.typicode.com/users");
+    console.log("Henter headers…")
+    let responseHeaders = await response.headers;
+    for (const pair of responseHeaders.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
     }
+    console.log("Henter body…")
+    let users = await response.json();
+    console.log(users);
+    console.log("Putter JSON på siden…");
+    let usersString = JSON.stringify(await users);
+    document.getElementById("kode").innerHTML = usersString;
+    console.log("Ferdig.")
 }
-
-getData();

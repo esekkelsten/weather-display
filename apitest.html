@@ -13,6 +13,8 @@
 <body>
     <h1 id="temp">N/A</h1>
     <img id="weatherIcon" src="" style="display: none;">
+
+    
     <script>
          // Direct from API
         const getWeather = async () => {
@@ -24,16 +26,12 @@
 
         (async () => {
             try {
-                const weatherData = await getWeather();
-                console.log(weatherData);
+                const newWeatherData = await getWeather();
+                console.log(newWeatherData);
+                localStorage.setItem("savedWeatherData", JSON.stringify(newWeatherData));
 
-                let nowWeather = weatherData.properties.timeseries[0].data.instant.details;
-                let weatherSymbol = weatherData.properties.timeseries[0].data.next_1_hours.summary.symbol_code;
-                console.log(nowWeather);
-
-                document.getElementById("temp").innerHTML = nowWeather.air_temperature + "°C";
-                document.getElementById("weatherIcon").src = "weathericonssvg/" + weatherSymbol + ".svg";
-                document.getElementById("weatherIcon").style = "display: inline";
+                let savedWeatherData = localStorage.getItem("savedWeatherData");
+                console.log(JSON.parse(savedWeatherData));
             } catch (error) {
                 console.log("Error");
             }
