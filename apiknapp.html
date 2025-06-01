@@ -7,11 +7,14 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <p id="tekst">Placeholder</p>
+    <p id="temp">Placeholder</p>
     <code id="kode" style="background-color: lightgray;">Placeholder</code>
     <br>
-    <button id="knapp" onclick="getUsers()">Knapp</button>
-
+    <li id="buttons">
+        <ul><button id="knapp" onclick="getWeather()">getWeather()</button></ul>
+        <ul><button id="knapp2" onclick="tinyCall()">tinyCall()</button></ul>
+        <ul><button id="knappAzure" onclick="getAzure()">getAzure()</button></ul>
+    </li>
 
     <!-- <script>
         async function getUsers() {

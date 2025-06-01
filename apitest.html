@@ -16,17 +16,24 @@
 
     
     <script>
-         // Direct from API
+        // Direct from API
+        let responseExpiration;
         const getWeather = async () => {
             const url = "https://api.met.no/weatherapi/nowcast/2.0/complete?lat=59.90&lon=10.81"; // Location: NHV25
             const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
             const response = await fetch(url, {headers: {"User-Agent": userAgent}});
+            responseExpiration = response.headers.get('Expires');
             return await response.json();
         }
 
         (async () => {
             try {
-                const newWeatherData = await getWeather();
+                if (condition) {
+                    
+                } else {
+                    
+                }
+                let newWeatherData = await getWeather();
                 console.log(newWeatherData);
                 localStorage.setItem("savedWeatherData", JSON.stringify(newWeatherData));
 
