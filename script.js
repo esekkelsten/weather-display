@@ -8,7 +8,7 @@
 
 const url = "https://api.met.no/weatherapi/nowcast/2.0/complete?lat=59.90&lon=10.81"; // Location: NHV25
 const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
-const headers = new Headers({"Origin": userAgent});
+const headers = new Headers({"origin": userAgent});
 let responseExpires;
 
 async function getWeather() {
@@ -25,7 +25,7 @@ async function getWeather() {
         for (const pair of headers.entries()) {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
-        let response = await fetch(url, {method: "GET", headers: headers});        
+        let response = await fetch(url, {mode: 'cors', method: "GET", headers: headers});        
         console.log("Henter headers…")
         let responseHeaders = await response.headers;
         responseExpires = responseHeaders.get('Expires');
@@ -47,7 +47,7 @@ async function getWeather() {
 }
 
 async function newGetWeather() {
-    await fetch(url, {headers: {"User-Agent": userAgent, "Origin": userAgent}})
+    await fetch(url, { headers: {"User-Agent": userAgent, "Origin": userAgent}})
         .then(response => {
             return response.json();
         })

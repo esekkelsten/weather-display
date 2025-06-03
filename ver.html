@@ -66,16 +66,18 @@
 			<div id="weather">
 				<img id="weatherIcon">
 				<p id="temp"></p>
+				<button onclick="getMeteogram()">Oppdater meteogram</button>
 			</div>
 		</div>
 
 		<img id="meteogram" src="https://www.yr.no/nn/innhald/1-73911/meteogram.svg?mode=dark">
 	</main>
 	    <script>
-        const getWeather = async () => {
+        const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
+        
+		const getWeather = async () => {
             const url = "https://api.met.no/weatherapi/nowcast/2.0/complete?lat=59.90&lon=10.81"; // Location: NHV25
-            const userAgent = "Weather-Display erlend.sekkelsten@gmail.com";
-            const response = await fetch(url, {headers: {"User-Agent": userAgent}});
+            const response = await fetch(url, {headers: {"origin": userAgent}});
             return await response.json();
         }
 
@@ -95,6 +97,12 @@
                 console.log("Error");
             }
         })();
+		let meteogramSrc = "https://www.yr.no/nn/innhald/1-73911/meteogram.svg?mode=dark";
+		
+		async function getMeteogram() {
+			const response = await fetch(meteogramSrc, { mode: 'no-cors', credentials: 'include', cache: 'reload', headers: {"referer": userAgent} });
+			return response.blob();
+		}
     </script>
 </body>
 </html>
